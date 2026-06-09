@@ -12,9 +12,10 @@ Internamente está separado en tres partes:
 Cada uno se encarga de hacer lo que su nombre indica que hace. Una parte jamás hará lo que otra parte hace.
 
 ### Frontend
-Idea inicial: usar el módulo de Qt para Python.
+Ventana creada con el módulo Qt de Python (PySide6). Consta de dos botones:
 
-{ Actualmente en desarrollo }
+1. Subir archivo.
+2. Elegir donde guardar.
 
 ## Manejo de entrada y salida
 ### Entrada

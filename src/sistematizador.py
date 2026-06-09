@@ -459,17 +459,20 @@ def _get_emp_remunera_bruta(df: pd.DataFrame, legajo: str, ignorar_viatico: bool
 
 def _get_emp_aporte_ad_os(df: pd.DataFrame, legajo: str) -> str:
     df_str = df.iloc[5, :].astype(str).str.strip().str.lower()
-    row_match = df_str[df_str == "aporte adicional o. social"].index
+    aporte_ad_os_row_match = df_str[df_str == "aporte adicional o. social"].index
     first_col = df.iloc[:, 0].astype(str).str.split(".").str[0].str.strip()
     leg_row_match = first_col[first_col == legajo].index
 
-    if not row_match.empty and not leg_row_match.empty:
-        index_target = row_match[0]
-        leg_index_taget = leg_row_match[0]
-        aporte_ad_os = f"{float(df.loc[leg_index_taget, index_target]):.2f}".replace(".", "").replace(",","")
-        return aporte_ad_os
-    else:
-        raise IndexError(f"No se encontró el legajo o columna solicitadas: {row_match, leg_row_match}")
+    if leg_row_match.empty:
+        raise IndexError(f"No se encontró el legajo para el aporte adicional o. social: {leg_row_match}")
+
+    if aporte_ad_os_row_match.empty:
+        raise IndexError(f"No se encontró la columna aporte adicional o. social: {aporte_ad_os_row_match}")
+
+    aporte_ad_os_index_target = aporte_ad_os_row_match[0]
+    leg_index_taget = leg_row_match[0]
+    aporte_ad_os = f"{float(df.loc[leg_index_taget, aporte_ad_os_index_target]):.2f}".replace(".", "").replace(",","")
+    return aporte_ad_os
 
 def _get_emp_worked_days(df: pd.DataFrame, legajo: str) -> str:
     first_col = df.iloc[:, 0].astype(str).str.split(".").str[0].str.strip()

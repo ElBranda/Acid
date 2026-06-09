@@ -173,6 +173,7 @@ class TprojectApp(QMainWindow):
             self.lbl_status.setText("¡Archivo creado con éxito!")
             self.lbl_status.setStyleSheet("color: #00ff87;")
         except Exception as e:
+            print(str(e))
             self.lbl_status.setText(f"Error: {str(e)}")
             self.lbl_status.setStyleSheet("color: #f75a68;")
 
